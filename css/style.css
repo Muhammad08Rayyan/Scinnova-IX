@@ -760,21 +760,19 @@ h4 {
   border: 1px solid var(--muted-gold);
   background: rgba(11, 9, 7, 0.8);
   backdrop-filter: blur(10px);
-  transition: all 0.5s ease;
+  transition: border-color 0.5s ease;
   position: relative;
   overflow: hidden;
 }
 .module-card:hover {
   border-color: var(--ancient-gold);
-  box-shadow: 0 0 30px rgba(224, 192, 112, 0.1),
-    inset 0 0 10px var(--ancient-gold);
 }
 .card-inner {
-  padding: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 5rem);
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 2vw, 1.5rem);
+  gap: clamp(1rem, 2vw, 2.5rem);
   overflow-y: auto;
 }
 .card-inner::-webkit-scrollbar {
@@ -797,7 +795,7 @@ h4 {
 }
 .module-number {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.5rem, 3vw, 3.5rem);
   color: var(--muted-gold);
   opacity: 0.5;
 }
@@ -811,10 +809,11 @@ h4 {
   padding: 0 1rem;
 }
 .module-icon {
-  width: clamp(90px, 12vw, 120px);
-  height: clamp(90px, 12vw, 120px);
+  width: clamp(90px, 9vw, 160px);
+  height: clamp(90px, 9vw, 160px);
   filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  will-change: transform;
   object-fit: contain;
 }
 .module-card:hover .module-icon {
@@ -840,7 +839,7 @@ h4 {
   min-height: 0;
 }
 .module-title {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.5rem, 2.5vw, 3.5rem);
   color: var(--parchment);
   letter-spacing: 0.05em;
   line-height: 1.1;
@@ -848,7 +847,7 @@ h4 {
 }
 .module-subtitle {
   font-family: var(--font-tech);
-  font-size: 0.9rem;
+  font-size: clamp(0.9rem, 1vw, 1.2rem);
   color: var(--ancient-gold);
   letter-spacing: 0.1em;
   margin-top: 0.2rem;
@@ -856,11 +855,41 @@ h4 {
 }
 .module-desc {
   font-family: var(--font-body);
-  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  font-size: clamp(0.95rem, 1.2vw, 1.35rem);
   color: var(--parchment-dim);
   line-height: 1.7;
   opacity: 1;
   flex: 1;
+}
+
+.study-guide-btn {
+  display: block;
+  font-family: var(--font-tech);
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  letter-spacing: 0.1em;
+  color: var(--ancient-gold);
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--ancient-gold);
+  margin-top: auto;
+  transition: all 0.3s ease;
+  text-align: center;
+  align-self: stretch;
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+.study-guide-btn:hover {
+  background: var(--ancient-gold);
+  color: var(--void-black);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+@media (max-width: 768px) {
+  .study-guide-btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
 .spacer-card {
   width: 45vw;
