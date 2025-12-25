@@ -987,17 +987,12 @@ h4 {
   box-shadow: 0 0 40px rgba(212, 175, 55, 0.1);
   backdrop-filter: blur(10px);
   overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
 }
 .card-content::-webkit-scrollbar {
-  width: 6px;
+  display: none; /* Chrome, Safari, Opera */
 }
-.card-content::-webkit-scrollbar-track {
-  background: rgba(212, 175, 55, 0.05);
-}
-.card-content::-webkit-scrollbar-thumb {
-  background: var(--muted-gold);
-  border-radius: 3px;
-}
+/* Removed old scrollbar styling to hide it completely */
 .card-content::before {
   content: "";
   position: absolute;
@@ -1327,7 +1322,7 @@ h4 {
     padding: 0 1.5rem;
   }
   .section-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2rem, 5vw, 3rem);
   }
   .magick-nav {
     display: flex;
