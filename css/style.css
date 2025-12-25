@@ -768,11 +768,11 @@ h4 {
   border-color: var(--ancient-gold);
 }
 .card-inner {
-  padding: clamp(1.5rem, 3vw, 5rem);
+  padding: clamp(1rem, calc(4vw - 1.25rem), 5rem);
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 2vw, 2.5rem);
+  gap: clamp(0.5rem, calc(2.2vw - 0.6rem), 2.5rem);
   overflow-y: auto;
 }
 .card-inner::-webkit-scrollbar {
@@ -795,7 +795,7 @@ h4 {
 }
 .module-number {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 3.5rem);
+  font-size: clamp(1rem, calc(4vw - 1.25rem), 4rem);
   color: var(--muted-gold);
   opacity: 0.5;
 }
@@ -809,8 +809,8 @@ h4 {
   padding: 0 1rem;
 }
 .module-icon {
-  width: clamp(90px, 9vw, 160px);
-  height: clamp(90px, 9vw, 160px);
+  width: clamp(60px, calc(12vw - 3.5rem), 180px);
+  height: clamp(60px, calc(12vw - 3.5rem), 180px);
   filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
   transition: transform 0.5s ease, filter 0.5s ease;
   will-change: transform;
@@ -839,7 +839,7 @@ h4 {
   min-height: 0;
 }
 .module-title {
-  font-size: clamp(1.5rem, 2.5vw, 3.5rem);
+  font-size: clamp(1rem, calc(3vw - 0.9rem), 4rem);
   color: var(--parchment);
   letter-spacing: 0.05em;
   line-height: 1.1;
@@ -855,7 +855,7 @@ h4 {
 }
 .module-desc {
   font-family: var(--font-body);
-  font-size: clamp(0.95rem, 1.2vw, 1.35rem);
+  font-size: clamp(0.85rem, calc(1.5vw - 0.4rem), 1.5rem);
   color: var(--parchment-dim);
   line-height: 1.7;
   opacity: 1;
@@ -863,7 +863,7 @@ h4 {
 }
 
 .study-guide-btn {
-  display: block;
+  display: inline-block;
   font-family: var(--font-tech);
   font-size: clamp(0.9rem, 1vw, 1.1rem);
   letter-spacing: 0.1em;
@@ -874,9 +874,10 @@ h4 {
   margin-top: auto;
   transition: all 0.3s ease;
   text-align: center;
-  align-self: stretch;
+  align-self: flex-start;
   background: rgba(0, 0, 0, 0.3);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .study-guide-btn:hover {
