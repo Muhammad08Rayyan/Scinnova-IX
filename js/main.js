@@ -60,6 +60,7 @@ window.addEventListener("load", () => {
   initMagneticButtons();
   initGallery();
   initMobileMenu();
+  initSponsorsScroll();
 });
 function initLoader() {
   const tl = gsap.timeline();
@@ -611,4 +612,67 @@ function isHeroVisible() {
   if (!hero) return false;
   const rect = hero.getBoundingClientRect();
   return rect.top < window.innerHeight && rect.bottom > 0;
+}
+
+function initSponsorsScroll() {
+  const wrapper = document.querySelector(".sponsors-scroll-wrapper");
+  const pinContainer = document.querySelector(".sponsors-pin-container");
+
+  if (!wrapper || !pinContainer) return;
+
+  if (window.innerWidth <= 768) return;
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: wrapper,
+      start: "top top",
+      end: "bottom bottom",
+      pin: pinContainer,
+      scrub: 1,
+    },
+  });
+
+  // Initial States
+  gsap.set(".card-platinum", { scale: 1.4, opacity: 1, y: 0, x: 0 }); // Center Huge
+  gsap.set(".card-bronze", { scale: 0.5, opacity: 0, x: -100, y: 100 });
+  gsap.set(".card-gift", { scale: 0.5, opacity: 0, x: 100, y: 100 });
+
+  // Animation Sequence
+  // 1. Platinum Shrinks and Moves UP
+  tl.to(".card-platinum", {
+    scale: 0.8,
+    y: "-30vh", // Move firmly to top
+    duration: 1.5,
+    ease: "power2.inOut",
+  });
+
+  // 2. Bronze (ATCO) Fades In and moves to Bottom Left
+  // Comes in slightly after Platinum moves
+  tl.to(
+    ".card-bronze",
+    {
+      scale: 1,
+      opacity: 1,
+      x: "-20vw", // Move left
+      y: "0vh", // Move UP (was 15vh)
+      duration: 1.2,
+      ease: "power2.out",
+    },
+    "-=0.5"
+  );
+
+  // 3. Gift (VOUCH) Fades In and moves to Bottom Right
+  // Comes in AFTER Bronze starts
+  tl.to(
+    ".card-gift",
+    {
+      scale: 1,
+      opacity: 1,
+      x: "20vw", // Move right
+      y: "25vh", // Move UP slightly (was 30vh)
+      duration: 1.2,
+      ease: "power2.out",
+    },
+    "-=0.2" // Slight overlap with Bronze end, but definitely "after" start
+  );
 }
