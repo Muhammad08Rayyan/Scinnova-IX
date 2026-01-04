@@ -641,7 +641,7 @@ function initSponsorsScroll() {
   // 1. Platinum Shrinks and Moves UP
   tl.to(".card-platinum", {
     scale: 0.8,
-    y: "-30vh", // Move firmly to top
+    y: "-15vh", // Move UP less (was -25vh) to avoid title overlap
     duration: 1.5,
     ease: "power2.inOut",
   });
@@ -654,7 +654,7 @@ function initSponsorsScroll() {
       scale: 1,
       opacity: 1,
       x: "-20vw", // Move left
-      y: "0vh", // Move UP (was 15vh)
+      y: "10vh", // Compact (was 20vh)
       duration: 1.2,
       ease: "power2.out",
     },
@@ -669,7 +669,7 @@ function initSponsorsScroll() {
       scale: 1,
       opacity: 1,
       x: "20vw", // Move right
-      y: "25vh", // Move UP slightly (was 30vh)
+      y: "20vh", // Compact (was 35vh)
       duration: 1.2,
       ease: "power2.out",
     },

@@ -1789,9 +1789,9 @@ h4 {
 
 .s-title {
   position: absolute;
-  top: 10%;
+  top: 3vh;
   width: 100%;
-  z-index: 10;
+  z-index: 50; /* Ensure on top */
   text-shadow: 0 0 30px rgba(0, 0, 0, 1);
   letter-spacing: 0.5em;
 }
@@ -1894,12 +1894,19 @@ h4 {
   object-fit: contain;
 }
 
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
 .tier-label {
   font-family: var(--font-tech);
   font-size: 0.9rem;
   letter-spacing: 0.25em;
   color: rgba(255, 255, 255, 0.5);
   margin-bottom: 0.25rem;
+  order: 1; /* Always first */
 }
 .card-platinum .tier-label {
   color: var(--ancient-gold);
@@ -1915,6 +1922,7 @@ h4 {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   line-height: 1;
+  order: 2; /* Always second */
 }
 
 .card-platinum .sponsor-label {
@@ -1964,5 +1972,26 @@ h4 {
   .card-bronze,
   .card-gift {
     width: 90%;
+  }
+
+  /* Text Fixes for Mobile */
+  .card-info {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .tier-label {
+    font-size: 0.8rem;
+    color: var(--ancient-gold); /* Make clear */
+    order: 1; /* Ensure first */
+  }
+  .sponsor-label {
+    font-size: 1.4rem;
+    line-height: 1.2;
+    order: 2; /* Ensure second */
+  }
+  .card-platinum .sponsor-label {
+    font-size: 1.8rem;
   }
 }
