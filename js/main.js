@@ -62,6 +62,7 @@ window.addEventListener("load", () => {
   initMobileMenu();
   initSponsorsScroll();
 });
+/* === LOADER === */
 function initLoader() {
   const tl = gsap.timeline();
   tl.from(".loader-text", {
@@ -88,6 +89,7 @@ function initLoader() {
       ease: "power2.inOut",
     });
 }
+/* === HERO ANIMATION === */
 function initHero() {
   const tl = gsap.timeline({ delay: 0.5 });
   tl.from(".fire-timer", {
@@ -107,6 +109,7 @@ function initHero() {
     "-=1.5"
   );
 }
+/* === GENERAL SCROLL ANIMATIONS === */
 function initScroll() {
   if (window.innerWidth > 1024) {
     gsap.fromTo(
@@ -204,6 +207,7 @@ function initMagneticButtons() {
     });
   });
 }
+/* === FAQ / ORACLE === */
 function initFAQ() {
   const items = document.querySelectorAll(".faq-item");
   items.forEach((item) => {
@@ -236,6 +240,7 @@ function initFAQ() {
     });
   });
 }
+/* === COUNTDOWN TIMER === */
 function initCountdown() {
   const targetDate = new Date("2026-01-09T08:00:00+05:00").getTime();
   let fireworksTriggered = false;
@@ -448,6 +453,7 @@ function startFireworks() {
   }
   loop();
 }
+/* === GALLERY SECTION === */
 function initGallery() {
   if (window.innerWidth < 768) return;
   const columns = document.querySelectorAll(".gallery-col");
@@ -489,6 +495,7 @@ function initGallery() {
   });
 }
 
+/* === MODULES HORIZONTAL SCROLL === */
 function initModulesScroll() {
   const section = document.querySelector(".horizontal-scroll-section");
   const wrapper = document.querySelector(".horizontal-scroll-wrapper");
@@ -518,6 +525,7 @@ function initModulesScroll() {
   }
 }
 
+/* === MOBILE MENU === */
 function initMobileMenu() {
   const toggle = document.querySelector(".mobile-menu-toggle");
   const closeBtn = document.querySelector(".mobile-menu-close");
@@ -614,6 +622,7 @@ function isHeroVisible() {
   return rect.top < window.innerHeight && rect.bottom > 0;
 }
 
+/* === SPONSORS SCROLL === */
 function initSponsorsScroll() {
   const wrapper = document.querySelector(".sponsors-scroll-wrapper");
   const pinContainer = document.querySelector(".sponsors-pin-container");
@@ -632,47 +641,40 @@ function initSponsorsScroll() {
     },
   });
 
-  // Initial States
-  gsap.set(".card-platinum", { scale: 1.4, opacity: 1, y: 0, x: 0 }); // Center Huge
+  gsap.set(".card-platinum", { scale: 1.4, opacity: 1, y: 0, x: 0 });
   gsap.set(".card-bronze", { scale: 0.5, opacity: 0, x: -100, y: 100 });
   gsap.set(".card-gift", { scale: 0.5, opacity: 0, x: 100, y: 100 });
 
-  // Animation Sequence
-  // 1. Platinum Shrinks and Moves UP
   tl.to(".card-platinum", {
     scale: 0.8,
-    y: "-15vh", // Move UP less (was -25vh) to avoid title overlap
+    y: "-15vh",
     duration: 1.5,
     ease: "power2.inOut",
   });
 
-  // 2. Bronze (ATCO) Fades In and moves to Bottom Left
-  // Comes in slightly after Platinum moves
   tl.to(
     ".card-bronze",
     {
       scale: 1,
       opacity: 1,
-      x: "-20vw", // Move left
-      y: "10vh", // Compact (was 20vh)
+      x: "-20vw",
+      y: "10vh",
       duration: 1.2,
       ease: "power2.out",
     },
     "-=0.5"
   );
 
-  // 3. Gift (VOUCH) Fades In and moves to Bottom Right
-  // Comes in AFTER Bronze starts
   tl.to(
     ".card-gift",
     {
       scale: 1,
       opacity: 1,
-      x: "20vw", // Move right
-      y: "20vh", // Compact (was 35vh)
+      x: "20vw",
+      y: "20vh",
       duration: 1.2,
       ease: "power2.out",
     },
-    "-=0.2" // Slight overlap with Bronze end, but definitely "after" start
+    "-=0.2"
   );
 }
