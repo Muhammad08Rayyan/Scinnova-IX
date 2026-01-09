@@ -685,49 +685,71 @@ function initSponsorsScroll() {
 /* === ROUND 2 MOBILE LOGIC === */
 const ROUND_2_DATA = [
   {
-    module: "Arcanum",
-    icon: "public/Logos/Module Logos/arcanum trans2.webp",
-    teams: ["Team Alpha", "Team Beta", "Team Gamma"],
-  },
-  {
-    module: "Illuminatio",
-    icon: "public/Logos/Module Logos/illuminatio.webp",
-    teams: ["Team Delta", "Team Epsilon"],
-  },
-  {
     module: "Ptolemy's Puzzle",
     icon: "public/Logos/Module Logos/Ptolemy’s.webp",
-    teams: Array.from({ length: 40 }, (_, i) => `Team Ptolemy ${i + 1}`),
-  },
-  {
-    module: "Planck's Paradox",
-    icon: "public/Logos/Module Logos/planks paradoc (1 line).webp",
-    teams: ["Team Iota", "Team Kappa"],
+    teams: [
+      "Jet 2 Holiday",
+      "Team Alpha",
+      "APECS",
+      "Heuser Seis Siete",
+      "Nightshades",
+      "Akatsuki",
+      "Schrödinger's Cats",
+      "Lab Rats",
+      "The big leagues",
+      "The Suicide Squad",
+      "HexaNova",
+      "Skibidi sigmas",
+      "Heuser",
+      "Infinity Stones",
+      "Gooners",
+      "Certified Guessers",
+    ],
   },
   {
     module: "Asclepius",
     icon: "public/Logos/Module Logos/Asclepius.webp",
-    teams: ["Team Lambda", "Team Mu", "Team Nu"],
+    teams: [
+      "TEAM ALPHA",
+      "TEAM BUBBLE GUM",
+      "TEAM THE SUICIDE SQAUD",
+      "TEAM HEUSER",
+      "TEAM SPARROW KE CHOOZAY",
+      "TEAM MIGHTY CHONDRIA",
+      "TEAM EUREKA EFFECT",
+      "TEAM A TEAM",
+      "TEAM NIXOR WHITE",
+    ],
   },
   {
-    module: "Redshift",
-    icon: "public/Logos/Module Logos/Redshift logo.webp",
-    teams: ["Team Xi", "Team Omicron"],
-  },
-  {
-    module: "Automaton",
-    icon: "public/Logos/Module Logos/Automaton Logo.webp",
-    teams: ["Team Pi", "Team Rho"],
-  },
-  {
-    module: "Freud's Foresit",
-    icon: "public/Logos/Module Logos/Freud logo.webp",
-    teams: ["Team Sigma", "Team Tau"],
+    module: "Planck's Paradox",
+    icon: "public/Logos/Module Logos/planks paradoc (1 line).webp",
+    teams: [], // Pending
   },
   {
     module: "QWERTY",
     icon: "public/Logos/Module Logos/Qwerty.webp",
-    teams: ["Team Upsilon", "Team Phi", "Team Chi"],
+    teams: [
+      "APECS",
+      "Skibidi Sigma",
+      "Heuser set siet",
+      "Liyaru Express",
+      "Cyber ninja",
+      "Gooners",
+    ],
+  },
+  {
+    module: "Redshift",
+    icon: "public/Logos/Module Logos/Redshift logo.webp",
+    teams: [
+      "Liyari express",
+      "Scientists of the Caribbean",
+      "Lab Rats",
+      "Tees Mar Khan",
+      "The suicide squad",
+      "skibidi sigmas",
+      "Astrophiles",
+    ],
   },
 ];
 
