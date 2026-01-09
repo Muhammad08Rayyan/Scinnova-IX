@@ -534,6 +534,7 @@ h4 {
   justify-content: center;
   align-items: center;
   gap: 0;
+  z-index: 10; /* Ensure it is above bg/images */
 }
 .hero-clock-img {
   position: absolute;

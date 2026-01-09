@@ -783,13 +783,27 @@ function initRound2Mobile() {
     }
   }
 
-  // Event Listeners
-  triggers.forEach((btn) =>
-    btn.addEventListener("click", (e) => {
+  // Debug: Check if function runs
+  console.log("initRound2Mobile: Function Started");
+
+  if (!overlay) console.error("initRound2Mobile: Overlay not found!");
+  if (triggers.length === 0)
+    console.warn(
+      "initRound2Mobile: No buttons with class .round-2-trigger found!"
+    );
+  else
+    console.log(`initRound2Mobile: Found ${triggers.length} trigger buttons.`);
+
+  // Event Listeners - Use Delegation to be safe against DOM updates
+  document.addEventListener("click", (e) => {
+    if (
+      e.target.matches(".round-2-trigger") ||
+      e.target.closest(".round-2-trigger")
+    ) {
       e.preventDefault();
       openModal();
-    })
-  );
+    }
+  });
 
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
 
