@@ -830,6 +830,9 @@ function initRound2Mobile() {
     });
 }
 
+// Debug: verify file load
+console.log("Main.js loaded safely");
+
 // Call init function safely
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initRound2Mobile);

@@ -488,12 +488,15 @@ h4 {
   text-align: center;
   box-shadow: 0 0 20px rgba(224, 192, 112, 0.3);
   position: relative;
-  z-index: 50;
+  z-index: 9999 !important;
   cursor: pointer;
+  pointer-events: auto !important;
 }
-.hero-register-btn:hover {
-  background: transparent;
-  color: var(--ancient-gold);
+@media (hover: hover) {
+  .hero-register-btn:hover {
+    background: transparent;
+    color: var(--ancient-gold);
+  }
 }
 .hero-register-btn:active {
   transform: scale(0.95);
@@ -572,6 +575,16 @@ h4 {
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   color: var(--parchment-dim);
+  pointer-events: none; /* Prevent blocking clicks */
+  z-index: 5;
+}
+
+.hero-content-wrapper {
+  position: relative;
+  z-index: 20; /* Ensure on top of everything */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /* === ABOUT / EDITORIAL === */
 .editorial-grid {
@@ -2012,11 +2025,14 @@ h4 {
   z-index: 10000;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Start from top */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
   backdrop-filter: blur(10px);
+  overflow-y: auto; /* Whole modal scrolls */
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
 }
 
 .r2-overlay.active {
@@ -2026,16 +2042,18 @@ h4 {
 
 .r2-container {
   width: 100%;
-  height: 100%;
+  min-height: 100%; /* Take full height */
   display: flex;
   flex-direction: column;
   position: relative;
   padding: 1rem;
+  /* Ensure padding at bottom for nav */
+  padding-bottom: 4rem;
 }
 
 .r2-close-btn {
-  position: absolute;
-  top: 1rem;
+  position: fixed; /* Fixed to screen */
+  top: 1.5rem;
   right: 1.5rem;
   background: none;
   border: none;
@@ -2043,11 +2061,11 @@ h4 {
   font-size: 3.5rem;
   line-height: 1;
   cursor: pointer;
-  z-index: 20;
+  z-index: 10001; /* Above everything */
 }
 
 .r2-header {
-  margin-top: 4rem; /* Space for close button */
+  margin-top: 5rem; /* Space for fixed close button */
   flex-shrink: 0;
   text-align: center;
   margin-bottom: 2rem;
@@ -2062,22 +2080,14 @@ h4 {
 
 .r2-content-area {
   flex-grow: 1;
-  overflow-y: auto;
-  margin-bottom: 1rem;
+  overflow: visible; /* No internal scroll */
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
-  /* Scrollbar styling */
-  scrollbar-width: thin;
-  scrollbar-color: var(--muted-gold) transparent;
+  height: auto;
 }
 
-.r2-content-area::-webkit-scrollbar {
-  width: 4px;
-}
-.r2-content-area::-webkit-scrollbar-thumb {
-  background: var(--muted-gold);
-  border-radius: 4px;
-}
+/* Scrollbar styling removed from content-area as it no longer scrolls */
 
 /* Card Styling inside content area */
 .r2-card {
@@ -2132,11 +2142,17 @@ h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+  padding: 1rem;
   border-top: 1px solid rgba(212, 175, 55, 0.2);
   width: 100%;
-  max-width: 800px; /* Match card width */
+  max-width: 800px;
   margin: 0 auto;
+  position: sticky;
+  bottom: 0;
+  background: rgba(11, 9, 7, 0.95); /* Partial bg to cover scrolling text */
+  backdrop-filter: blur(10px);
+  z-index: 50;
+  border-radius: 10px 10px 0 0; /* Optional rounded top */
 }
 
 .r2-nav-btn {
