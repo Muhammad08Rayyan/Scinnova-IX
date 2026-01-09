@@ -678,3 +678,143 @@ function initSponsorsScroll() {
     "-=0.2"
   );
 }
+
+/* === ROUND 2 MOBILE LOGIC === */
+const ROUND_2_DATA = [
+  {
+    module: "Arcanum",
+    icon: "public/Logos/Module Logos/arcanum trans2.webp",
+    teams: ["Team Alpha", "Team Beta", "Team Gamma"],
+  },
+  {
+    module: "Illuminatio",
+    icon: "public/Logos/Module Logos/illuminatio.webp",
+    teams: ["Team Delta", "Team Epsilon"],
+  },
+  {
+    module: "Ptolemy's Puzzle",
+    icon: "public/Logos/Module Logos/Ptolemy’s.webp",
+    teams: Array.from({ length: 40 }, (_, i) => `Team Ptolemy ${i + 1}`),
+  },
+  {
+    module: "Planck's Paradox",
+    icon: "public/Logos/Module Logos/planks paradoc (1 line).webp",
+    teams: ["Team Iota", "Team Kappa"],
+  },
+  {
+    module: "Asclepius",
+    icon: "public/Logos/Module Logos/Asclepius.webp",
+    teams: ["Team Lambda", "Team Mu", "Team Nu"],
+  },
+  {
+    module: "Redshift",
+    icon: "public/Logos/Module Logos/Redshift logo.webp",
+    teams: ["Team Xi", "Team Omicron"],
+  },
+  {
+    module: "Automaton",
+    icon: "public/Logos/Module Logos/Automaton Logo.webp",
+    teams: ["Team Pi", "Team Rho"],
+  },
+  {
+    module: "Freud's Foresit",
+    icon: "public/Logos/Module Logos/Freud logo.webp",
+    teams: ["Team Sigma", "Team Tau"],
+  },
+  {
+    module: "QWERTY",
+    icon: "public/Logos/Module Logos/Qwerty.webp",
+    teams: ["Team Upsilon", "Team Phi", "Team Chi"],
+  },
+];
+
+function initRound2Mobile() {
+  const overlay = document.querySelector(".r2-overlay");
+  const closeBtn = document.querySelector(".r2-close-btn");
+  const contentArea = document.querySelector(".r2-content-area");
+  const triggers = document.querySelectorAll(".round-2-trigger");
+  const prevBtn = document.querySelector(".r2-prev");
+  const nextBtn = document.querySelector(".r2-next");
+  const counter = document.querySelector(".r2-counter");
+
+  let currentIndex = 0;
+
+  function renderSlide(index) {
+    if (!contentArea) return;
+    const data = ROUND_2_DATA[index];
+
+    // Render Card
+    contentArea.innerHTML = `
+      <div class="r2-card">
+        <img src="${data.icon}" alt="${data.module}" class="r2-module-icon">
+        <h3 class="r2-module-name">${data.module}</h3>
+        <ul class="r2-team-list">
+          ${
+            data.teams.length
+              ? data.teams.map((t) => `<li class="r2-team">${t}</li>`).join("")
+              : '<li class="r2-team" style="font-style:italic; opacity:0.7;">Pending...</li>'
+          }
+        </ul>
+      </div>
+    `;
+
+    // Update Counter
+    if (counter) counter.textContent = `${index + 1} / ${ROUND_2_DATA.length}`;
+
+    // Update Buttons
+    if (prevBtn) prevBtn.disabled = index === 0;
+    if (nextBtn) nextBtn.disabled = index === ROUND_2_DATA.length - 1;
+  }
+
+  function openModal() {
+    if (overlay) {
+      overlay.classList.add("active");
+      document.body.style.overflow = "hidden";
+      if (window.lenis) window.lenis.stop();
+      renderSlide(currentIndex);
+    }
+  }
+
+  function closeModal() {
+    if (overlay) {
+      overlay.classList.remove("active");
+      document.body.style.overflow = "";
+      if (window.lenis) window.lenis.start();
+    }
+  }
+
+  // Event Listeners
+  triggers.forEach((btn) =>
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal();
+    })
+  );
+
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+  if (prevBtn)
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderSlide(currentIndex);
+      }
+    });
+
+  if (nextBtn)
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex < ROUND_2_DATA.length - 1) {
+        currentIndex++;
+        renderSlide(currentIndex);
+      }
+    });
+
+  // Close on outside click
+  if (overlay)
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeModal();
+    });
+}
+
+// Call init function if we missed the load event or simply run it now
+initRound2Mobile();
