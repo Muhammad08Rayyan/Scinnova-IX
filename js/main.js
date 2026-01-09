@@ -15,21 +15,24 @@ window.addEventListener("mousemove", function (e) {
     );
   }
 });
-const hoverables = document.querySelectorAll(
-  "a:not(.magick-nav a):not(.cta-btn):not(.partner-link), button, .magnetic-btn, .module-card"
-);
-hoverables.forEach((el) => {
-  el.addEventListener("mouseenter", () => {
-    cursorOutline.style.width = "60px";
-    cursorOutline.style.height = "60px";
-    cursorOutline.style.backgroundColor = "rgba(212, 175, 55, 0.1)";
+// Only init custom cursor logic on devices with a mouse/trackpad
+if (window.matchMedia("(pointer: fine)").matches) {
+  const hoverables = document.querySelectorAll(
+    "a:not(.magick-nav a):not(.cta-btn):not(.partner-link), button, .magnetic-btn, .module-card"
+  );
+  hoverables.forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      cursorOutline.style.width = "60px";
+      cursorOutline.style.height = "60px";
+      cursorOutline.style.backgroundColor = "rgba(212, 175, 55, 0.1)";
+    });
+    el.addEventListener("mouseleave", () => {
+      cursorOutline.style.width = "40px";
+      cursorOutline.style.height = "40px";
+      cursorOutline.style.backgroundColor = "transparent";
+    });
   });
-  el.addEventListener("mouseleave", () => {
-    cursorOutline.style.width = "40px";
-    cursorOutline.style.height = "40px";
-    cursorOutline.style.backgroundColor = "transparent";
-  });
-});
+}
 window.lenis = new Lenis({
   duration: 1.2,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -794,16 +797,35 @@ function initRound2Mobile() {
   else
     console.log(`initRound2Mobile: Found ${triggers.length} trigger buttons.`);
 
-  // Event Listeners - Use Delegation to be safe against DOM updates
-  document.addEventListener("click", (e) => {
+  // Event Listeners - Use Delegation
+  function handleTrigger(e) {
     if (
       e.target.matches(".round-2-trigger") ||
       e.target.closest(".round-2-trigger")
     ) {
+      // Prevent ghost clicks if both touch/click fire
       e.preventDefault();
       openModal();
     }
-  });
+  }
+
+  document.addEventListener("click", handleTrigger);
+  // Add touchend for instant reaction (skips 300ms click delay if any)
+  document.addEventListener(
+    "touchend",
+    (e) => {
+      if (
+        e.target.matches(".round-2-trigger") ||
+        e.target.closest(".round-2-trigger")
+      ) {
+        // Prevent scroll-then-tap issues: only trigger if not scrolling?
+        // For now, simple trigger is fine as it's a specific button
+        e.preventDefault();
+        openModal();
+      }
+    },
+    { passive: false }
+  );
 
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
 
