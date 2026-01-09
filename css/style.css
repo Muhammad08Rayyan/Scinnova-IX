@@ -2029,11 +2029,11 @@ h4 {
   pointer-events: none;
   transition: opacity 0.3s ease;
   backdrop-filter: blur(10px);
-  overflow-y: auto; /* Whole modal scrolls */
-  -webkit-overflow-scrolling: touch; /* Momentum scroll */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 0;
-  display: block; /* Native block scrolling is safer */
-  touch-action: pan-y !important; /* Allow vertical drag */
+  display: block;
+  touch-action: pan-y !important;
   overscroll-behavior: contain;
 }
 
@@ -2044,17 +2044,17 @@ h4 {
 
 .r2-container {
   width: 100%;
-  min-height: 100vh; /* Minimum full screen */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
   padding: 1rem;
-  padding-bottom: 0; /* Nav handles its own padding */
+  padding-bottom: 0;
   box-sizing: border-box;
 }
 
 .r2-close-btn {
-  position: fixed; /* Fixed to screen */
+  position: fixed;
   top: 1.5rem;
   right: 1.5rem;
   background: none;
@@ -2063,12 +2063,12 @@ h4 {
   font-size: 3rem;
   line-height: 1;
   cursor: pointer;
-  z-index: 10001; /* Above everything */
-  padding: 10px; /* Touch target */
+  z-index: 10001;
+  padding: 10px;
 }
 
 .r2-header {
-  margin-top: 5rem; /* Space for fixed close button */
+  margin-top: 5rem;
   flex-shrink: 0;
   text-align: center;
   margin-bottom: 2rem;
@@ -2089,7 +2089,6 @@ h4 {
   margin-bottom: 2rem;
 }
 
-/* Ensure card doesn't overflow horizontally */
 .r2-card {
   width: 100%;
   max-width: 800px;
@@ -2123,20 +2122,18 @@ h4 {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  padding-bottom: 2rem; /* Scrolling space */
+  padding-bottom: 2rem;
 }
 
 .r2-team {
   font-family: var(--font-body);
   font-size: 1.2rem;
   color: var(--parchment);
-  padding: 0.5rem;
+  padding: 0.5rem 1.5rem;
   background: rgba(0, 0, 0, 0.2);
   border-bottom: 1px dashed rgba(212, 175, 55, 0.2);
-  text-align: center;
+  text-align: left;
 }
-
-/* Navigation Bar */
 .r2-navigation {
   flex-shrink: 0;
   display: flex;
@@ -2149,10 +2146,10 @@ h4 {
   margin: 0 auto;
   position: sticky;
   bottom: 0;
-  background: rgba(11, 9, 7, 0.95); /* Partial bg to cover scrolling text */
+  background: rgba(11, 9, 7, 0.95);
   backdrop-filter: blur(10px);
   z-index: 50;
-  border-radius: 10px 10px 0 0; /* Optional rounded top */
+  border-radius: 10px 10px 0 0;
 }
 
 .r2-nav-btn {
@@ -2190,7 +2187,20 @@ h4 {
 
 @media (min-width: 769px) {
   .r2-container {
-    align-items: center; /* Center horizontally on desktop */
+    align-items: center;
     padding: 3rem;
+  }
+  .r2-card {
+    max-width: 1400px;
+  }
+
+  .r2-navigation {
+    max-width: 1400px;
+  }
+
+  .r2-team-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 3rem;
   }
 }

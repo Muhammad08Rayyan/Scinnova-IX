@@ -746,7 +746,6 @@ function initRound2Mobile() {
     if (!contentArea) return;
     const data = ROUND_2_DATA[index];
 
-    // Render Card
     contentArea.innerHTML = `
       <div class="r2-card">
         <img src="${data.icon}" alt="${data.module}" class="r2-module-icon">
@@ -761,10 +760,8 @@ function initRound2Mobile() {
       </div>
     `;
 
-    // Update Counter
     if (counter) counter.textContent = `${index + 1} / ${ROUND_2_DATA.length}`;
 
-    // Update Buttons
     if (prevBtn) prevBtn.disabled = index === 0;
     if (nextBtn) nextBtn.disabled = index === ROUND_2_DATA.length - 1;
   }
@@ -786,31 +783,18 @@ function initRound2Mobile() {
     }
   }
 
-  // Debug: Check if function runs
-  console.log("initRound2Mobile: Function Started");
-
   if (!overlay) console.error("initRound2Mobile: Overlay not found!");
-  if (triggers.length === 0)
-    console.warn(
-      "initRound2Mobile: No buttons with class .round-2-trigger found!"
-    );
-  else
-    console.log(`initRound2Mobile: Found ${triggers.length} trigger buttons.`);
-
-  // Event Listeners - Use Delegation
   function handleTrigger(e) {
     if (
       e.target.matches(".round-2-trigger") ||
       e.target.closest(".round-2-trigger")
     ) {
-      // Prevent ghost clicks if both touch/click fire
       e.preventDefault();
       openModal();
     }
   }
 
   document.addEventListener("click", handleTrigger);
-  // Add touchend for instant reaction (skips 300ms click delay if any)
   document.addEventListener(
     "touchend",
     (e) => {
@@ -818,8 +802,6 @@ function initRound2Mobile() {
         e.target.matches(".round-2-trigger") ||
         e.target.closest(".round-2-trigger")
       ) {
-        // Prevent scroll-then-tap issues: only trigger if not scrolling?
-        // For now, simple trigger is fine as it's a specific button
         e.preventDefault();
         openModal();
       }
@@ -845,17 +827,12 @@ function initRound2Mobile() {
       }
     });
 
-  // Close on outside click
   if (overlay)
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay) closeModal();
     });
 }
 
-// Debug: verify file load
-console.log("Main.js loaded safely");
-
-// Call init function safely
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initRound2Mobile);
 } else {
