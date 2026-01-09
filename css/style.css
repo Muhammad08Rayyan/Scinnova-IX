@@ -487,6 +487,9 @@ h4 {
   transition: all 0.3s ease;
   text-align: center;
   box-shadow: 0 0 20px rgba(224, 192, 112, 0.3);
+  position: relative;
+  z-index: 50;
+  cursor: pointer;
 }
 .hero-register-btn:hover {
   background: transparent;

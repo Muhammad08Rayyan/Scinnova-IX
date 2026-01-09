@@ -816,5 +816,9 @@ function initRound2Mobile() {
     });
 }
 
-// Call init function if we missed the load event or simply run it now
-initRound2Mobile();
+// Call init function safely
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initRound2Mobile);
+} else {
+  initRound2Mobile();
+}
