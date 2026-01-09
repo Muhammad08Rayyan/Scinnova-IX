@@ -491,6 +491,8 @@ h4 {
   z-index: 9999 !important;
   cursor: pointer;
   pointer-events: auto !important;
+  touch-action: manipulation; /* Fix double-tap delay */
+  -webkit-tap-highlight-color: transparent;
 }
 @media (hover: hover) {
   .hero-register-btn:hover {
@@ -2023,16 +2025,16 @@ h4 {
   inset: 0;
   background: rgba(11, 9, 7, 0.98);
   z-index: 10000;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Start from top */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
   backdrop-filter: blur(10px);
   overflow-y: auto; /* Whole modal scrolls */
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; /* Momentum scroll */
   padding: 0;
+  display: block; /* Native block scrolling is safer */
+  touch-action: pan-y !important; /* Allow vertical drag */
+  overscroll-behavior: contain;
 }
 
 .r2-overlay.active {
@@ -2042,13 +2044,13 @@ h4 {
 
 .r2-container {
   width: 100%;
-  min-height: 100%; /* Take full height */
+  min-height: 100vh; /* Minimum full screen */
   display: flex;
   flex-direction: column;
   position: relative;
   padding: 1rem;
-  /* Ensure padding at bottom for nav */
-  padding-bottom: 4rem;
+  padding-bottom: 0; /* Nav handles its own padding */
+  box-sizing: border-box;
 }
 
 .r2-close-btn {
@@ -2058,10 +2060,11 @@ h4 {
   background: none;
   border: none;
   color: var(--ancient-gold);
-  font-size: 3.5rem;
+  font-size: 3rem;
   line-height: 1;
   cursor: pointer;
   z-index: 10001; /* Above everything */
+  padding: 10px; /* Touch target */
 }
 
 .r2-header {
@@ -2080,16 +2083,13 @@ h4 {
 
 .r2-content-area {
   flex-grow: 1;
-  overflow: visible; /* No internal scroll */
-  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   height: auto;
+  margin-bottom: 2rem;
 }
 
-/* Scrollbar styling removed from content-area as it no longer scrolls */
-
-/* Card Styling inside content area */
+/* Ensure card doesn't overflow horizontally */
 .r2-card {
   width: 100%;
   max-width: 800px;
