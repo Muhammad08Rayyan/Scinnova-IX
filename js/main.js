@@ -703,12 +703,12 @@ const ROUND_2_DATA = [
     module: "Automaton",
     icon: "public/Logos/Module Logos/Automaton Logo.webp",
     teams: [
-      "Team 29 Astrophiles",
-      "Team 24 Gooners",
-      "Team 41 Logic Legends",
-      "Team 17 Suicide Squad",
-      "Team 09 Scientists of the Carribean",
-      "Team 38 Tisific",
+      "Astrophiles",
+      "Gooners",
+      "Logic Legends",
+      "Suicide Squad",
+      "Scientists of the Carribean",
+      "Tisific",
     ],
   },
   {
