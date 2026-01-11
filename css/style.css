@@ -619,6 +619,256 @@ h4 {
   .council-row-3 {
     max-width: 100%;
   }
+
+  .module-title-card {
+    margin-left: 0;
+  }
+}
+
+/* === WINNERS SECTION === */
+.winners-section {
+  position: relative;
+  background: var(--void-black);
+  /* overflow: hidden; Removed to ensure content flow? No, hidden is good for animations. */
+  overflow: hidden;
+  /* Reduce Z-index to avoid covering later sections if pinning goes wrong */
+  z-index: 2;
+  padding-bottom: 10vh; /* Add some padding at bottom */
+}
+
+.winner-block {
+  margin-bottom: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0; /* Hidden initially for GSAP */
+  transform: translateY(50px);
+}
+
+.winner-header {
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.winner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.winner-image-wrapper {
+  position: relative;
+  width: 80vw;
+  max-width: 600px;
+  aspect-ratio: 16/9;
+  border: 1px solid var(--ancient-gold);
+  padding: 10px;
+  background: rgba(11, 9, 7, 0.5);
+}
+
+.winner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8) contrast(1.1);
+  transition: all 0.5s ease;
+}
+
+.winner-image-wrapper:hover .winner-img {
+  filter: brightness(1) contrast(1);
+}
+
+.winner-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.2) 0%,
+    transparent 70%
+  );
+  z-index: -1;
+  animation: pulseGlow 4s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.winner-team-name {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--ancient-gold);
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.1em;
+  margin-top: var(--space-sm);
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.runner-up-text {
+  color: var(--parchment);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.white-text {
+  color: var(--parchment);
+  -webkit-text-stroke: 0px;
+}
+
+/* Module Winners Container */
+.module-winners-wrapper {
+  margin-top: var(--space-xl);
+  position: relative;
+  min-height: 100vh; /* Give it space for pinning */
+}
+
+/* Mobile List Styles */
+.mobile-only-flex {
+  display: none;
+}
+.desktop-only-flex {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .mobile-only-flex {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+  .desktop-only-flex {
+    display: none !important;
+  }
+
+  .mw-mobile-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--muted-gold);
+    padding: var(--space-md);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .mw-mobile-module {
+    font-family: var(--font-tech);
+    color: var(--parchment-dim);
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .mw-mobile-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 1px solid var(--ancient-gold);
+  }
+
+  .mw-mobile-team {
+    font-family: var(--font-heading);
+    color: var(--ancient-gold);
+    font-size: 1.5rem;
+  }
+}
+
+/* Desktop Stack Styles */
+.mw-desktop-stack {
+  width: 100%;
+  height: 100vh; /* Full viewport height for pinning */
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* The parent container .module-winners-wrapper might be the pin trigger, 
+     or we pin .mw-desktop-stack itself inside JS */
+}
+
+.cards-stack-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mw-card {
+  position: absolute;
+  width: 40vw; /* Increased from 35vw */
+  max-width: 600px;
+  height: 32vh; /* Increased from 28vh */
+  background: var(--void-black);
+  border: 1px solid var(--ancient-gold);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+  transform-origin: center center;
+}
+
+.mw-card-content {
+  flex: 1;
+  padding: var(--space-xs); /* Smaller padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: none;
+  position: relative;
+}
+
+.mw-card-img-wrapper {
+  flex: 1.5; /* Give image more width ratio (Landscape feel) */
+  position: relative;
+  overflow: hidden;
+  border-left: 1px solid var(--muted-gold); /* Add border if on right */
+}
+
+.mw-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mw-card-module {
+  font-family: var(--font-tech);
+  color: var(--parchment-dim);
+  font-size: 0.9rem; /* Smaller font */
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mw-card-team {
+  font-family: var(--font-heading);
+  color: var(--ancient-gold);
+  font-size: clamp(1.2rem, 2vw, 1.8rem); /* Smaller font */
+  text-align: center;
+  line-height: 1.1;
+}
+
+/* Alternating layout for cards handled via modifier classes or nth-child logic in JS/CSS?
+   Actually, let's keep consistent layout inside the card, but the card position animates left/right.
+   Or we can flip the flex-direction. Let's start consistent to avoid complexity first.
+*/
+.mw-card.card-flipped {
+  flex-direction: row-reverse;
+}
+.mw-card.card-flipped .mw-card-content {
+  border-right: none;
+  border-left: 1px solid var(--muted-gold);
 }
 .editorial-text {
   padding-top: var(--space-lg);

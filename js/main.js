@@ -56,6 +56,7 @@ window.addEventListener("load", () => {
   initLoader();
   tryAutoPlay();
   initHero();
+  initWinners(); // Move this UP so it pins/reserves space BEFORE modules/sponsors calculate limits
   initModulesScroll();
   initScroll();
   initFAQ();
@@ -92,6 +93,190 @@ function initLoader() {
       ease: "power2.inOut",
     });
 }
+
+/* === WINNERS SECTION === */
+const WINNERS_DATA = [
+  {
+    module: "ARCANUM",
+    team: "MYSTERY INC.",
+    img: "public/Pictures/3.webp",
+    guide: "Mystery",
+  },
+  {
+    module: "ILLUMINATIO",
+    team: "HEISENBERG",
+    img: "public/Pictures/4.webp",
+    guide: "Chemistry",
+  },
+  {
+    module: "PTOLEMY'S PUZZLE",
+    team: "EULER'S ELITE",
+    img: "public/Pictures/5.webp",
+    guide: "Maths",
+  },
+  {
+    module: "PLANCK'S PARADOX",
+    team: "SCHRODINGER'S CATS",
+    img: "public/Pictures/6.webp",
+    guide: "Physics",
+  },
+  {
+    module: "ASCLEPIUS",
+    team: "DNA DYNASTY",
+    img: "public/Pictures/7.webp",
+    guide: "Biology",
+  },
+  {
+    module: "REDSHIFT",
+    team: "INTERSTELLAR",
+    img: "public/Pictures/8.webp",
+    guide: "Astronomy",
+  },
+  {
+    module: "AUTOMATON",
+    team: "CYBER PUNKS",
+    img: "public/Pictures/9.webp",
+    guide: "Robotics",
+  },
+  {
+    module: "FREUD'S FORSIT",
+    team: "MIND HUNTERS",
+    img: "public/Pictures/10.webp",
+    guide: "Psychology",
+  },
+  {
+    module: "QWERTY",
+    team: "BINARY BROS",
+    img: "public/Pictures/11.webp",
+    guide: "Computer Science",
+  },
+];
+
+function initWinners() {
+  // 1. Populate Data
+  const mobileContainer = document.querySelector(".mw-mobile-list");
+  const desktopContainer = document.querySelector(".cards-stack-container");
+
+  if (mobileContainer && desktopContainer) {
+    WINNERS_DATA.forEach((item, index) => {
+      // Mobile Item
+      const mobileItem = document.createElement("div");
+      mobileItem.classList.add("mw-mobile-item");
+      mobileItem.innerHTML = `
+         <h4 class="mw-mobile-module">${item.module}</h4>
+         <img src="${item.img}" alt="${item.team}" class="mw-mobile-img" />
+         <h3 class="mw-mobile-team">${item.team}</h3>
+       `;
+      mobileContainer.appendChild(mobileItem);
+
+      // Desktop Card
+      const card = document.createElement("div");
+      card.classList.add("mw-card");
+      // Alternate layout
+      if (index % 2 !== 0) card.classList.add("card-flipped");
+
+      card.style.zIndex = WINNERS_DATA.length - index; // Stack order (First on top? Or reverse?)
+      // We want scroll to Reveal them. Let's put first on top.
+      // Actually, for a "deck deal", usually we pull from top.
+
+      card.innerHTML = `
+         <div class="mw-card-content">
+            <h4 class="mw-card-module">${item.module}</h4>
+            <h3 class="mw-card-team">${item.team}</h3>
+         </div>
+         <div class="mw-card-img-wrapper">
+            <img src="${item.img}" alt="${item.team}" class="mw-card-img" />
+         </div>
+       `;
+      desktopContainer.appendChild(card);
+    });
+  }
+
+  // 2. Animations (Overall Winner / Runner Up)
+  const winners = document.querySelectorAll(".winner-block");
+  winners.forEach((block) => {
+    gsap.to(block, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: block,
+        start: "top 75%",
+      },
+    });
+  });
+
+  // 3. Desktop Card Stack Animation
+  if (window.innerWidth > 768) {
+    const wrapper = document.querySelector(".module-winners-wrapper");
+    const cards = gsap.utils.toArray(".mw-card");
+
+    // Initial Position: Center Screen
+    gsap.set(cards, {
+      x: 0,
+      y: 0,
+      scale: 0.5,
+      opacity: 0,
+      zIndex: (i) => i, // Higher index on top? No, let's stack normally.
+    });
+
+    // We want to create a scrolling feed effect.
+    // As we scroll:
+    // 1. A new card "Deal" in.
+    // 2. The whole field moves UP to make space.
+
+    // Calculate positions
+    // Left Col: -25vw, Right Col: +25vw
+    // Vertical Gap: 30vh (since card is 28vh)
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: wrapper,
+        start: "top top",
+        end: "+=" + cards.length * 50 + "%", // Much shorter scroll distance (faster)
+        pin: true,
+        scrub: 1,
+        // Add refreshPriority to ensure this pin is calculated before others down the page?
+        // Actually, standard order is usually fine if init order is correct.
+        // But let's force a refresh after this trigger is created.
+      },
+    });
+    // Force refresh to handle layout shifts from pinning
+    ScrollTrigger.refresh();
+
+    cards.forEach((card, i) => {
+      const isLeft = i % 2 === 0;
+      const xPos = isLeft ? "-25vw" : "25vw";
+      const yPos = 0; // Relative to current "center" line
+
+      // Step 1: Deal Card i
+      tl.to(card, {
+        x: xPos,
+        y: yPos,
+        scale: 1,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+      });
+
+      // Step 2: Move EVERYTHING (including the just dealt card) UP
+      // to prepare for the next row.
+      // But only if there is a next card.
+      if (i < cards.length - 1) {
+        const allDealtSoFar = cards.slice(0, i + 1);
+
+        // Move them up by slightly more than card height (32vh -> 35vh gap)
+        tl.to(allDealtSoFar, {
+          y: "-=35vh",
+          duration: 1,
+          ease: "power1.inOut",
+        }); // Append
+      }
+    });
+  }
+}
+
 /* === HERO ANIMATION === */
 function initHero() {
   const tl = gsap.timeline({ delay: 0.5 });
