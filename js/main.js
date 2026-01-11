@@ -685,7 +685,7 @@ function initSponsorsScroll() {
 /* === ROUND 2 MOBILE LOGIC === */
 const ROUND_2_DATA = [
   {
-    module: "Freud's Foresight",
+    module: "Freud's Forsit",
     icon: "public/Logos/Module Logos/Freud logo.webp",
     teams: [
       "The crew",
